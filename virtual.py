@@ -7,10 +7,11 @@ from managers.balance_manager import BalanceManager
 # - レバレッジ
 # - 現物、マージンの切り替え
 class VirtualExchange:
-    def __init__(self, market_data, initial_cash_balance, initial_btc_balance):
-        self.market_manager   = MarketManager(market_data)
+    def __init__(self, market_data, clock, initial_cash_balance, initial_btc_balance):
+        self.market_manager   = MarketManager(market_data, clock)
         self.order_manager    = OrderManager()
         self.balance_manager  = BalanceManager(initial_cash_balance, initial_btc_balance)
+        
 
     # オーダーを受け取る
     def receive_order(self, order):

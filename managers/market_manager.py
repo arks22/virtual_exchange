@@ -4,7 +4,7 @@ import pandas as pd
 
 # 市場データの管理
 class MarketManager:
-    def __init__(self, market_timeseries):
+    def __init__(self, market_timeseries, clock):
         self.market_timeseries = np.load(market_timeseries)
         timeseries = pd.read_csv(market_timeseries)
         timeseries.columns = ['open', 'high', 'low', 'close', 'volume']
@@ -13,7 +13,7 @@ class MarketManager:
         self.current_ohlcv = None
         self.future_ohlcv = None
 
-        self.clock = 0
+        self.clock = clock
 
     def update_market_data(self):
         self.clock += 1
