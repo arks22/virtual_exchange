@@ -58,7 +58,6 @@ class VirtualExchange:
         if order["type"] == "limit" and ((order['side'] == 'long' and order['price'] >= current_price) or
                                         (order['side'] == 'short' and order['price'] <= current_price)):
             # 初期証拠金レベルのチェック
-            #if self.balance_manager.evaluate_initial_margin(order['size'], order['price'], current_price):
             if self.balance_manager.evaluate_initial_balance(order['size'] * order['price'], order['size'], order['side']):
                 position_change, cash_change = self.order_manager.execute_limit_order(order_id)
             else:
@@ -67,7 +66,6 @@ class VirtualExchange:
         elif order["type"] == "stop" and ((order['side'] == 'long' and order['price'] <= current_price) or
                                           (order['side'] == 'short' and order['price'] >= current_price)):
             # 初期証拠金レベルのチェック
-            #if self.balance_manager.evaluate_initial_margin(order['size'], order['price'], current_price):
             if self.balance_manager.evaluate_initial_balance(order['size'] * order['price'], order['size'], order['side']):
                 position_change, cash_change = self.order_manager.execute_stop_order(order_id, current_price)
             else:
