@@ -7,9 +7,9 @@ from .managers.balance_manager import BalanceManager
 # - レバレッジ
 # - 現物、マージンの切り替え
 class VirtualExchange:
-    def __init__(self, market_data, clock, initial_cash_balance=0, initial_btc_balance=0):
+    def __init__(self, market_data, clock, initial_cash_balance=0, initial_btc_balance=0, maker_fee=0, taker_fee=0):
         self.market_manager   = MarketManager(market_data, clock)
-        self.order_manager    = OrderManager()
+        self.order_manager    = OrderManager(maker_fee=maker_fee, taker_fee=taker_fee)
         self.balance_manager  = BalanceManager(initial_cash_balance, initial_btc_balance)
     
     def set_clock(self, clock):

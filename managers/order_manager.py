@@ -1,13 +1,13 @@
 # オーダーの管理
 class OrderManager:
-    def __init__(self):
+    def __init__(self, maker_fee, taker_fee):
         self.order_index = 0
         self.open_orders    = {}
         self.canceled_orders = [] # 外部からのキャンセル
         self.closed_orders  = []  #  決済されたオーダー
         self.rejected_orders = [] # キャッシュ不足などで拒否されたオーダー
-        self.fee_maker = 0.001
-        self.fee_taker = 0.001
+        self.fee_maker = maker_fee
+        self.fee_taker = taker_fee
 
     # オーダーの作成
     def create_order(self, order, clock):
