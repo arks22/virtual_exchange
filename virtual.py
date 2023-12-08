@@ -1,6 +1,6 @@
-from managers.market_manager import MarketManager
-from managers.order_manager import OrderManager
-from managers.balance_manager import BalanceManager
+from .managers.market_manager import MarketManager
+from .managers.order_manager import OrderManager
+from .managers.balance_manager import BalanceManager
 
 # Todo
 # - 両建て

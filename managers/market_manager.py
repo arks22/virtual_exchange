@@ -4,8 +4,8 @@ import pandas as pd
 
 # 市場データの管理
 class MarketManager:
-    def __init__(self, market_timeseries, clock):
-        self.market_timeseries = np.load(market_timeseries)
+    def __init__(self, market_timeseries):
+        # self.market_timeseries = np.load(market_timeseries)
         timeseries = pd.read_csv(market_timeseries)
         timeseries.columns = ['open', 'high', 'low', 'close', 'volume']
         self.market_timeseries = timeseries
