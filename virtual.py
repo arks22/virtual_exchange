@@ -7,12 +7,22 @@ from managers.balance_manager import BalanceManager
 # - レバレッジ
 # - 現物、マージンの切り替え
 class VirtualExchange:
-    def __init__(self, market_data, clock, initial_cash_balance, initial_btc_balance):
+    def __init__(self, market_data, clock, initial_cash_balance=0, initial_btc_balance=0):
         self.market_manager   = MarketManager(market_data, clock)
         self.order_manager    = OrderManager()
         self.balance_manager  = BalanceManager(initial_cash_balance, initial_btc_balance)
+    
+    def set_clock(self, clock):
+        self.market_manager.set_clock(clock)
+    
+    def set_balances(self, cash_balance, btc_balance, position):
+        if cash_balance != None:
+            self.balance_manager.set_cash_balance(cash_balance)
+        if btc_balance != None:
+            self.balance_manager.set_btc_balance(btc_balance)
+        if position != None:
+            self.balance_manager.set_position(position)
         
-
     # オーダーを受け取る
     def receive_order(self, order):
         # オーダー作成
@@ -79,7 +89,10 @@ class VirtualExchange:
 
     # キャッシュバランスの更新
     def update_balance(self, cash_change, btc_change):
-        self.balance_manager.update_balance(cash_change, btc_change)
+        if cash_change != 0:
+            self.balance_manager.update_cash_balance(cash_change)
+        if btc_change != 0:
+            self.balance_manager.update_btc_balance(btc_change)
     
     # ポジションの更新
     def update_position(self, position_change):
@@ -105,8 +118,10 @@ class VirtualExchange:
             self.receive_order(liquidation_order)
 
 
-    def get_market_data(self):
-        self.update_state()
+    def get_market_data(self, donot_update=False):
+        if not donot_update:
+            self.update_state()
+
         return self.market_manager.get_ohlcv()
     
     def get_future_data(self):

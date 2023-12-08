@@ -35,15 +35,30 @@ class BalanceManager:
         post_order_btc_balance = self.btc_balance + order_btc_change
         return post_order_cash_balance >= 0 and post_order_btc_balance >= 0
         
-
+    """
     def update_balance(self, cash_change, btc_change):
         self.cash_balance += cash_change
         self.btc_balance += btc_change
         #if self.cash_balance < 0 or self.btc_balance < 0:
-            #raise Exception(f'Negative balance{self.cash_balance}, {self.btc_balance}')
+    """
+
+    def update_cash_balance(self, cash_change):
+        self.cash_balance += cash_change
+    
+    def update_btc_balance(self, btc_change):
+        self.btc_balance += btc_change
     
     def update_position(self, position_change):
         self.position += position_change  # ネットポジションの更新
+    
+    def set_cash_balance(self, cash_balance):
+        self.cash_balance = cash_balance
+    
+    def set_btc_balance(self, btc_balance):
+        self.btc_balance = btc_balance
+    
+    def set_position(self, position):
+        self.position = position
 
     def get_cash_balance(self):
         return self.cash_balance
