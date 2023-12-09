@@ -15,7 +15,7 @@ class VirtualExchange:
     def set_clock(self, clock):
         self.market_manager.set_clock(clock)
     
-    def set_balances(self, cash_balance, btc_balance, position):
+    def set_balances(self, cash_balance=None, btc_balance=None, position=None):
         if cash_balance != None:
             self.balance_manager.set_cash_balance(cash_balance)
         if btc_balance != None:
