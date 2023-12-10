@@ -13,6 +13,9 @@ class MarketManager:
         self.future_ohlcv = None
 
         self.clock = clock
+    
+    def set_clock(self, clock):
+        self.clock = clock
 
     def update_market_data(self):
         self.clock += 1
