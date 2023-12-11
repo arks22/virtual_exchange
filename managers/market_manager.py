@@ -16,12 +16,15 @@ class MarketManager:
     
     def set_clock(self, clock):
         self.clock = clock
+        self.set_ohlcv()
 
     def update_market_data(self):
         self.clock += 1
         if self.clock >= len(self.market_timeseries):
             raise Exception('Market data exhausted')
-            
+        self.set_ohlcv()
+
+    def set_ohlcv(self):
         self.current_ohlcv = self.market_timeseries.iloc[self.clock]
         self.future_ohlcv = self.market_timeseries.iloc[self.clock+1:self.clock+6]
     

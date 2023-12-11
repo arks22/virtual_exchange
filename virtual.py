@@ -123,6 +123,9 @@ class VirtualExchange:
             self.update_state()
 
         return self.market_manager.get_ohlcv()
+
+    def get_current_price(self):
+        return self.market_manager.get_price()
     
     def get_future_data(self):
         return self.market_manager.get_future_ohlcv()
