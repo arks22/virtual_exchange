@@ -30,7 +30,7 @@ class VirtualExchange:
 
         current_price = self.market_manager.get_price()
         # 初期証拠金レベルのチェック
-        if not self.balance_manager.evaluate_initial_margin(order['size'], current_price, current_price):
+        if not self.balance_manager.evaluate_initial_balance(order['size'], current_price, current_price):
             self.order_manager.close_order(order_id, type="reject")
 
         # 成行注文
@@ -54,11 +54,13 @@ class VirtualExchange:
         for order_id, order in list(self.order_manager.get_open_orders().items()):
             self.process_executable_orders(order_id, order)
 
+        """
         # 維持証拠金レベルのチェック
         position = self.balance_manager.get_position()
         if not self.balance_manager.evaluate_maintenance_margin(position, current_price):
             #self.execute_liquidation() # ロスカット
             pass
+        """
     
     # 約定可能なオーダーの処理
     def process_executable_orders(self, order_id, order):
